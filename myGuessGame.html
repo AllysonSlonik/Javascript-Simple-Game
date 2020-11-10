@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Guess Game</title>
+    <!-- Required meta tags -->
+ 
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+      body{
+        background-color: orange;
+      }
+
+      .container{
+        margin: 10px;
+        
+      }
+
+      .btn{
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="container text-center">
+      <div class="form">
+        <label for="labelGuess">Guess a number between 1 - 10</label><br>
+        <input type="text" class="userInput"><br>
+        <button class="btn btn-success btnSubmit" type="submit">Submit!</button>
+      </div>
+    </div>
+
+    <div class="container text-center allP">
+      <p class="previousGuess"></p>
+      <p class="rightWrong"></p>
+      <p class="lowHigh"></p>
+    </div>
+
+    <script>
+
+      let randomNumber = Math.floor(Math.random() * 10) + 1;
+
+      let previousGuess = document.querySelector('.previousGuess');
+      let userInput = document.querySelector('.userInput');
+      let lowHigh = document.querySelector('.lowHigh');
+      let rightWrong = document.querySelector('.rightWrong');
+      
+      let btnSubmit = document.querySelector('.btnSubmit');
+      btnSubmit.addEventListener('click', checkGuess);
+      
+      let tries = 1;
+
+      //INSIDE THE BUTTON CLICK 
+
+      function checkGuess(){
+
+      let userGuess = Number(userInput.value)
+
+      if(tries === 1){
+        previousGuess.textContent = "Previous Guess: ";
+      } 
+        previousGuess.textContent += userGuess + ' ';
+      
+      if(userGuess === randomNumber){
+        rightWrong.textContent = "You've WON!";
+        rightWrong.style.backgroundColor = 'green';
+        lowHigh.textContent = "";
+        setGameOver();
+
+      } else if(userGuess > randomNumber){
+        rightWrong.textContent = "That's Wrong!";
+        rightWrong.style.backgroundColor = 'red';
+        lowHigh.textContent = "That's too HIGH!";
+
+      } else if(userGuess < randomNumber){
+        rightWrong.textContent = "That's Wrong!"
+        rightWrong.style.backgroundColor = 'red';
+        lowHigh.textContent = "That's too LOW";
+      }
+
+      tries++;
+
+      }
+
+      function setGameOver(){
+        btnSubmit.disabled = true;
+        userInput.disabled = true;
+      }
+    </script>
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
